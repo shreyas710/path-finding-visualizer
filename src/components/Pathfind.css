@@ -1,0 +1,22 @@
+.Wrapper{
+    max-width: 80%;
+    margin: auto;
+}
+
+.rowWrapper{
+    display: flex;
+}
+
+.buttn {
+    margin-top: 30px;
+    width: 100px;
+    height: 50px;
+    background-color: white;
+    color: black;
+}
+
+.buttn:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
