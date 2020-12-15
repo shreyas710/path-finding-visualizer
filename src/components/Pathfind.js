@@ -11,7 +11,8 @@ const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
 const NODE_END_ROW = rows - 1;
 const NODE_END_COL = cols - 1;
-const val = 1;
+let val = 1;
+var Name = "A* Algorithm";
 
 const Pathfind = () => {
     const [Grid, setGrid] = useState([]);
@@ -36,32 +37,34 @@ const Pathfind = () => {
 
         addNeighbours(grid);
 
-        getStartNode();
-        getEndNode();
-
         const startNode = grid[NODE_START_ROW][NODE_START_COL];
         const endNode = grid[NODE_END_ROW][NODE_END_COL];
         let path;
-        if (val === 1) {
-            path = Astar(startNode, endNode);
+        switch (val) {
+            case 1:
+                path = Astar(startNode, endNode);
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            default:
+                path = Astar(startNode, endNode);
         }
         startNode.isWall = false;
         endNode.isWall = false;
-        if (path === "no path found") {
-            alert("No Path Found");
-            return;
-        }
+        // if (path.text === "no path found") {
+        //     alert("No Path Found");
+        //     return;
+        // }
         setPath(path.path);
 
         setVisited(path.visited);
-    };
-
-    const getStartNode = () => {
-
-    };
-
-    const getEndNode = () => {
-
     };
 
     // create spot
@@ -156,20 +159,43 @@ const Pathfind = () => {
         }
     }
 
-    console.log(Path);
+
+    const AssignValue = (event) => {
+        if (event.target.id === "btn1") {
+            Name = "A* Algorithm";
+            val = 1;
+
+        } else if (event.target.id === "btn2") {
+            Name = "Bellman Ford";
+            val = 2;
+        }
+        else if (event.target.id === "btn3") {
+            Name = "Floyd Warshall";
+            val = 3;
+        }
+        else {
+            Name = "Dijkstra's Algorithm";
+            val = 4;
+        }
+        // alert(Name + val);
+    };
+
+    const clearFun = (grid) => {
+        
+    }
 
     return (
         <div className="Wrapper">
-            <div class="btn-group-horizontal">
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
+            <div className="btn-group-horizontal" style={{ marginTop: 30 + 'px' }}>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn1">A* Algorithm</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn2">Bellman Ford</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn3">Floyd Warshall</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn4">Dijkstra's Algorithm</button>
             </div>
-            <button className="buttn" onClick={visualizePath}>Visualize path</button>
-            <h1>Astar Algorithm</h1>
+            <button type="button" className="vis btn btn-outline-success" onClick={visualizePath} id="btn1">Visualize Path</button>
+
+            <button type="button" className="btn btn-outline-danger clr" onClick={clearFun}>Clear</button>
+            <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
             {gridwithNode}
         </div>
     )
