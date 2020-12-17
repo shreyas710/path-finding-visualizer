@@ -51,7 +51,7 @@ function Astar(startNode, endNode) {
             }
         }
     }
-    return { path, visited, error: "no path found" };
+    return { path, visited, text: "no path found" };
 }
 
 function herustic(a, b) {

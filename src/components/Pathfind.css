@@ -7,19 +7,17 @@
     display: flex;
 }
 
-.buttn {
-    margin-top: 30px;
-    width: 100px;
-    height: 50px;
-    background-color: white;
-    color: black;
+
+.btn{
+    margin: auto;
+    margin-right: 30px;
 }
 
-.buttn:hover{
-    background-color: black;
-    color: white;
-    cursor: pointer;
+.clr{
+    margin-left: 466px;
+    margin-top: 31px;
 }
-.class{
-    
+
+.vis {
+    margin-top: 30px;
 }

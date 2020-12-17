@@ -3,6 +3,8 @@ import Astar from '../astarAlgorithm/astar'
 import Node from './Node'
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css'
+import Navbar from './Navbar'
+import './Node.css'
 
 const rows = 10;
 const cols = 25;
@@ -11,7 +13,8 @@ const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
 const NODE_END_ROW = rows - 1;
 const NODE_END_COL = cols - 1;
-const val = 1;
+let algo = -1;
+let Name = "Choose a Algorithm";
 
 const Pathfind = () => {
     const [Grid, setGrid] = useState([]);
@@ -31,38 +34,55 @@ const Pathfind = () => {
         }
 
         createSpot(grid);
-
         setGrid(grid);
-
+        clearNodes();
         addNeighbours(grid);
-
-        getStartNode();
-        getEndNode();
 
         const startNode = grid[NODE_START_ROW][NODE_START_COL];
         const endNode = grid[NODE_END_ROW][NODE_END_COL];
-        let path;
-        if (val === 1) {
-            path = Astar(startNode, endNode);
-        }
         startNode.isWall = false;
         endNode.isWall = false;
-        if (path === "no path found") {
-            alert("No Path Found");
-            return;
+
+    };
+
+    const clearNodes = () => {
+        for (let i = 0; i <VisitedNodes.length; ++i) {
+            const node = VisitedNodes[i];
+            if(node.x==NODE_START_ROW&&node.y==NODE_START_COL){
+                document.getElementById(`node-${node.x}-${node.y}`).className = "node-start";
+            }else if(node.x==NODE_END_ROW&&node.y==NODE_END_COL){
+                document.getElementById(`node-${node.x}-${node.y}`).className = "node-end";
+            }else{
+                document.getElementById(`node-${node.x}-${node.y}`).className = "node";  
+            }
+        }
+    }
+
+    const changeAlgo = (val) => {
+        const startNode = Grid[NODE_START_ROW][NODE_START_COL];
+        const endNode = Grid[NODE_END_ROW][NODE_END_COL];
+         let path;
+         algo=val;
+        switch (val) {
+            case 1:
+                path = Astar(startNode, endNode);
+                Name = 'A Star Algorithm'
+                break;
+            case 2:
+                Name = "Dijkstra's Algorithm";
+                break;
+            case 3:
+                Name = "BFS Algorithm";
+                break;
+            case 4:
+
+                break;
+            default:
+                path = Astar(startNode, endNode);
         }
         setPath(path.path);
-
         setVisited(path.visited);
-    };
-
-    const getStartNode = () => {
-
-    };
-
-    const getEndNode = () => {
-
-    };
+    }
 
     // create spot
     const createSpot = (grid) => {
@@ -137,39 +157,47 @@ const Pathfind = () => {
         }
     }
 
-    const visualizePath = () => {
-        for (let i = 0; i <= VisitedNodes.length; ++i) {
-            if (i === VisitedNodes.length) {
-                setTimeout((
-                    () => {
-                        visualzeShortestPath(Path);
-                    }
-                ), 10 * i);
-            } else {
-                setTimeout((
-                    () => {
-                        const node = VisitedNodes[i];
-                        document.getElementById(`node-${node.x}-${node.y}`).className = "node node-visited";
-                    }
-                ), 10 * i);
+  const visualizePath = () => {
+      if(VisitedNodes.length==0){
+          alert(`Select a Algorithm :)`);
+
+      }else{
+            for (let i = 0; i <= VisitedNodes.length; ++i) {
+                if (i === VisitedNodes.length) {
+                    setTimeout((
+                        () => {
+                            visualzeShortestPath(Path);
+                        }
+                    ), 10 * i);
+                } else {
+                    setTimeout((
+                        () => {
+                            const node = VisitedNodes[i];
+                            document.getElementById(`node-${node.x}-${node.y}`).className = "node node-visited";
+                        }
+                    ),10 * i);
+                }
             }
         }
     }
 
-    console.log(Path);
+    const clearFun = (grid) => {
+        
+    }
 
     return (
         <div className="Wrapper">
-            <div class="btn-group-horizontal">
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
-                <button type="button" class="btn btn-primary">Button</button>
+            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo}/>
+            {/* <div className="btn-group-horizontal" style={{ marginTop: 30 + 'px' }}>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn1">A* Algorithm</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn2">Bellman Ford</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn3">Floyd Warshall</button>
+                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn4">Dijkstra's Algorithm</button>
             </div>
-            <button className="buttn" onClick={visualizePath}>Visualize path</button>
-            <h1>Astar Algorithm</h1>
+            <button type="button" className="vis btn btn-outline-success" onClick={visualizePath} id="btn1">Visualize Path</button>
+
+            <button type="button" className="btn btn-outline-danger clr" onClick={clearFun}>Clear</button> */}
+            <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
             {gridwithNode}
         </div>
     )
