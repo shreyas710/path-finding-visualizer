@@ -6,15 +6,15 @@ import './Pathfind.css'
 import Navbar from './Navbar'
 import './Node.css'
 
-const rows = 10;
-const cols = 25;
+const rows = 15;
+const cols = 35;
 
 const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
 const NODE_END_ROW = rows - 1;
 const NODE_END_COL = cols - 1;
 let algo = -1;
-let Name = "Choose a Algorithm";
+let Name = "Select an Algorithm";
 
 const Pathfind = () => {
     const [Grid, setGrid] = useState([]);
@@ -43,30 +43,26 @@ const Pathfind = () => {
         startNode.isWall = false;
         endNode.isWall = false;
 
+        setPath([]);
+        setVisited([]);
     };
 
     const clearNodes = () => {
-        for (let i = 0; i <VisitedNodes.length; ++i) {
+        for (let i = 0; i < VisitedNodes.length; ++i) {
             const node = VisitedNodes[i];
-            if(node.x==NODE_START_ROW&&node.y==NODE_START_COL){
-                document.getElementById(`node-${node.x}-${node.y}`).className = "node-start";
-            }else if(node.x==NODE_END_ROW&&node.y==NODE_END_COL){
-                document.getElementById(`node-${node.x}-${node.y}`).className = "node-end";
-            }else{
-                document.getElementById(`node-${node.x}-${node.y}`).className = "node";  
-            }
+            document.getElementById(`node-${node.x}-${node.y}`).className = "node";
         }
     }
 
     const changeAlgo = (val) => {
         const startNode = Grid[NODE_START_ROW][NODE_START_COL];
         const endNode = Grid[NODE_END_ROW][NODE_END_COL];
-         let path;
-         algo=val;
+        let path;
+        algo = val;
         switch (val) {
             case 1:
                 path = Astar(startNode, endNode);
-                Name = 'A Star Algorithm'
+                Name = 'A* Algorithm'
                 break;
             case 2:
                 Name = "Dijkstra's Algorithm";
@@ -75,7 +71,7 @@ const Pathfind = () => {
                 Name = "BFS Algorithm";
                 break;
             case 4:
-
+                Name = "Floyd Warshall"
                 break;
             default:
                 path = Astar(startNode, endNode);
@@ -157,11 +153,11 @@ const Pathfind = () => {
         }
     }
 
-  const visualizePath = () => {
-      if(VisitedNodes.length==0){
-          alert(`Select a Algorithm :)`);
+    const visualizePath = () => {
+        if (VisitedNodes.length === 0) {
+            alert(`Select an Algorithm`);
 
-      }else{
+        } else {
             for (let i = 0; i <= VisitedNodes.length; ++i) {
                 if (i === VisitedNodes.length) {
                     setTimeout((
@@ -175,30 +171,20 @@ const Pathfind = () => {
                             const node = VisitedNodes[i];
                             document.getElementById(`node-${node.x}-${node.y}`).className = "node node-visited";
                         }
-                    ),10 * i);
+                    ), 10 * i);
                 }
             }
         }
     }
 
-    const clearFun = (grid) => {
-        
-    }
-
     return (
-        <div className="Wrapper">
-            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo}/>
-            {/* <div className="btn-group-horizontal" style={{ marginTop: 30 + 'px' }}>
-                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn1">A* Algorithm</button>
-                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn2">Bellman Ford</button>
-                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn3">Floyd Warshall</button>
-                <button type="button" className="btn btn-outline-primary" onClick={AssignValue} id="btn4">Dijkstra's Algorithm</button>
+        <div className>
+            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} />
+            <div className="Wrapper">
+                <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
+                {gridwithNode}
             </div>
-            <button type="button" className="vis btn btn-outline-success" onClick={visualizePath} id="btn1">Visualize Path</button>
 
-            <button type="button" className="btn btn-outline-danger clr" onClick={clearFun}>Clear</button> */}
-            <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
-            {gridwithNode}
         </div>
     )
 };
