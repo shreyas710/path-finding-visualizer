@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Astar from '../astarAlgorithm/astar'
+import dfs from "../DFS/dfs";
 import Node from './Node'
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css'
@@ -11,8 +12,8 @@ const cols = 35;
 
 const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
-const NODE_END_ROW = rows - 1;
-const NODE_END_COL = cols - 1;
+const NODE_END_ROW = 10;
+const NODE_END_COL = 26;
 let algo = -1;
 let Name = "Select an Algorithm";
 
@@ -68,7 +69,8 @@ const Pathfind = () => {
                 Name = "Dijkstra's Algorithm";
                 break;
             case 3:
-                Name = "BFS Algorithm";
+                path = dfs(startNode, endNode, rows, cols);
+                Name = "DFS Algorithm";
                 break;
             case 4:
                 Name = "Floyd Warshall"
