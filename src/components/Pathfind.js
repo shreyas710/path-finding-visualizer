@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Astar from '../astarAlgorithm/astar'
 import dfs from "../DFS/dfs";
+import greedy_best from '../Greedy-Best-first-search/greedy-best'
 import Node from './Node'
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css'
@@ -73,10 +74,11 @@ const Pathfind = () => {
                 Name = "DFS Algorithm";
                 break;
             case 4:
-                Name = "Floyd Warshall"
+                path = greedy_best(startNode,endNode,rows,cols);
+                Name = "Greedy-best-first-search"
                 break;
             default:
-                path = Astar(startNode, endNode);
+                Name= "Choose a Algorithm"
         }
         setPath(path.path);
         setVisited(path.visited);

@@ -28,6 +28,7 @@ const Navbar = ({visualizePath,visualzeShortestPath,initialiseGrid,changeAlgo}) 
                     <ReactBootStrap.NavDropdown.Item onClick={() => {changeAlgo(1)}}>A Star</ReactBootStrap.NavDropdown.Item>
                     <ReactBootStrap.NavDropdown.Item onClick={() => {changeAlgo(2)}}>Dijkstra</ReactBootStrap.NavDropdown.Item>
                     <ReactBootStrap.NavDropdown.Item onClick={() => {changeAlgo(3)}}>DFS</ReactBootStrap.NavDropdown.Item>
+                    <ReactBootStrap.NavDropdown.Item onClick={() => {changeAlgo(4)}}>Greedy-best-first-search</ReactBootStrap.NavDropdown.Item>
                 </ReactBootStrap.NavDropdown>
                 </ReactBootStrap.Nav>
                 <ReactBootStrap.Nav>
