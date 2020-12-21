@@ -13,8 +13,8 @@ const cols = 35;
 
 const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
-const NODE_END_ROW = 10;
-const NODE_END_COL = 26;
+const NODE_END_ROW = rows - 1;
+const NODE_END_COL = cols - 1;
 let algo = -1;
 let Name = "Select an Algorithm";
 
@@ -50,6 +50,7 @@ const Pathfind = () => {
     };
 
     const clearNodes = () => {
+        Name = "select an algorithm";
         for (let i = 0; i < VisitedNodes.length; ++i) {
             const node = VisitedNodes[i];
             document.getElementById(`node-${node.x}-${node.y}`).className = "node";
@@ -74,11 +75,11 @@ const Pathfind = () => {
                 Name = "DFS Algorithm";
                 break;
             case 4:
-                path = greedy_best(startNode,endNode,rows,cols);
+                path = greedy_best(startNode, endNode, rows, cols);
                 Name = "Greedy-best-first-search"
                 break;
             default:
-                Name= "Choose a Algorithm"
+                Name = "Choose a Algorithm"
         }
         setPath(path.path);
         setVisited(path.visited);
