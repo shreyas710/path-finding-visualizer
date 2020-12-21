@@ -50,7 +50,7 @@ const Pathfind = () => {
     };
 
     const clearNodes = () => {
-        Name = "select an algorithm";
+        Name = "Select An Algorithm";
         for (let i = 0; i < VisitedNodes.length; ++i) {
             const node = VisitedNodes[i];
             document.getElementById(`node-${node.x}-${node.y}`).className = "node";
