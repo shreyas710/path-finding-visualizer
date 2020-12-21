@@ -15,7 +15,6 @@ const NODE_START_ROW = 0;
 const NODE_START_COL = 0;
 const NODE_END_ROW = rows - 1;
 const NODE_END_COL = cols - 1;
-let algo = -1;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -61,20 +60,16 @@ const Pathfind = () => {
         const startNode = Grid[NODE_START_ROW][NODE_START_COL];
         const endNode = Grid[NODE_END_ROW][NODE_END_COL];
         let path;
-        algo = val;
         switch (val) {
             case 1:
                 path = Astar(startNode, endNode);
                 Name = 'A* Algorithm'
                 break;
             case 2:
-                Name = "Dijkstra's Algorithm";
-                break;
-            case 3:
                 path = dfs(startNode, endNode, rows, cols);
                 Name = "DFS Algorithm";
                 break;
-            case 4:
+            case 3:
                 path = greedy_best(startNode, endNode, rows, cols);
                 Name = "Greedy-best-first-search"
                 break;

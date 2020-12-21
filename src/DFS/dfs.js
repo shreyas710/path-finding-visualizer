@@ -1,44 +1,42 @@
-const vis=[];
-const visited=[];
-const path=[];
-let flag=0;
-function dfs(startNode, endNode, rows, cols){
-    
+const vis = [];
+const visited = [];
+const path = [];
+let flag = 0;
+function dfs(startNode, endNode, rows, cols) {
 
-    for(let i=0;i<rows;i++)
-    {
-        const temp=[];
-        for(let j=0;j<cols;j++)
-        {
+
+    for (let i = 0; i < rows; i++) {
+        const temp = [];
+        for (let j = 0; j < cols; j++) {
             temp.push(0);
         }
         vis.push(temp);
     }
-    run(startNode,endNode,vis,visited);
+    run(startNode, endNode, vis, visited);
     let currentNode = endNode;
-    while(currentNode.previous!=undefined){
+    while (currentNode.previous !== undefined) {
         path.push(currentNode);
-        currentNode=currentNode.previous;
+        currentNode = currentNode.previous;
     }
     path.push(currentNode);
     path.reverse();
     return { path, visited, text: "no path found" };
 }
 
-function run(startNode,endNode,vis,visited){
-    if(vis[startNode.x][startNode.y]===0){
-        vis[startNode.x][startNode.y]=1;
+function run(startNode, endNode, vis, visited) {
+    if (vis[startNode.x][startNode.y] === 0) {
+        vis[startNode.x][startNode.y] = 1;
         visited.push(startNode);
-        if(startNode===endNode){
-            flag=1;
+        if (startNode === endNode) {
+            flag = 1;
             return;
         }
-        for(let i=0;i<startNode.neighbours.length;i++){
+        for (let i = 0; i < startNode.neighbours.length; i++) {
             const neighbour = startNode.neighbours[i];
-            if(vis[neighbour.x][neighbour.y]==0&&!neighbour.isWall){
-                run(startNode.neighbours[i],endNode,vis,visited);
-                startNode.neighbours[i].previous=startNode;
-                if(flag==1){
+            if (vis[neighbour.x][neighbour.y] === 0 && !neighbour.isWall) {
+                run(startNode.neighbours[i], endNode, vis, visited);
+                startNode.neighbours[i].previous = startNode;
+                if (flag === 1) {
                     return;
                 }
             }
