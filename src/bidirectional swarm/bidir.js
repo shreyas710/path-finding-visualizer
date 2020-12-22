@@ -9,6 +9,8 @@ let tQueue = [];
 
 let path = [];
 
+let Visited = [];
+
 function BFS1() {
     let curr = sQueue.shift();
     let neighbour = curr.neighbours;
@@ -79,11 +81,35 @@ function Bidir(startNode, endNode) {
                 path.push(tParent.get(i));
                 i = tParent.get(i);
             }
-            console.log(path);
-            return { path, sVisited, tVisited };
+
+            i = 0;
+            let j = 0, f = 0;
+            while (i < sVisited.length && j < tVisited.length) {
+                if (f === 0) {
+                    Visited.push(sVisited[i]);
+                    i++;
+                    f = 1;
+                } else {
+                    Visited.push(tVisited[j]);
+                    j++;
+                    f = 0;
+                }
+            }
+
+            while (i < sVisited.length) {
+                Visited.push(sVisited[i]);
+                i++;
+            }
+
+            while (j < tVisited.length) {
+                Visited.push(tVisited[j]);
+                j++;
+            }
+
+            return { path, Visited };
         }
     }
-    return { path, sVisited, tVisited, error: "no path found" };
+    return { path, Visited, error: "no path found" };
 }
 
 export default Bidir;

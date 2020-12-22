@@ -85,8 +85,7 @@ const Pathfind = () => {
                 Name = "Bidirectional Swarm";
                 console.log(path.error);
                 setPath(path.path);
-                setVisited(path.sVisited);
-                setVisited(path.tVisited);
+                setVisited(path.Visited);
                 break;
             default:
                 Name = "Choose a Algorithm";
