@@ -21,6 +21,7 @@ const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlg
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(1) }}>A*</ReactBootStrap.NavDropdown.Item>
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(2) }}>DFS</ReactBootStrap.NavDropdown.Item>
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(3) }}>Greedy-Best-First-Search</ReactBootStrap.NavDropdown.Item>
+                        <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(4) }}>Bidirectional swarm</ReactBootStrap.NavDropdown.Item>
                     </ReactBootStrap.NavDropdown>
                 </ReactBootStrap.Nav>
                 <ReactBootStrap.Nav>

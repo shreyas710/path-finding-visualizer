@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Astar from '../astarAlgorithm/astar'
+import Astar from '../astarAlgorithm/astar';
 import dfs from "../DFS/dfs";
-import greedy_best from '../Greedy-Best-first-search/greedy-best'
-import Node from './Node'
+import greedy_best from '../Greedy-Best-first-search/greedy-best';
+import Bidir from '../bidirectional swarm/bidir';
+import Node from './Node';
 import "bootswatch/dist/lux/bootstrap.min.css";
-import './Pathfind.css'
-import Navbar from './Navbar'
-import './Node.css'
+import './Pathfind.css';
+import Navbar from './Navbar';
+import './Node.css';
 
 const rows = 15;
 const cols = 35;
@@ -63,21 +64,34 @@ const Pathfind = () => {
         switch (val) {
             case 1:
                 path = Astar(startNode, endNode);
-                Name = 'A* Algorithm'
+                Name = 'A* Algorithm';
+                setPath(path.path);
+                setVisited(path.visited);
                 break;
             case 2:
                 path = dfs(startNode, endNode, rows, cols);
                 Name = "DFS Algorithm";
+                setPath(path.path);
+                setVisited(path.visited);
                 break;
             case 3:
                 path = greedy_best(startNode, endNode, rows, cols);
-                Name = "Greedy-best-first-search"
+                Name = "Greedy-best-first-search";
+                setPath(path.path);
+                setVisited(path.visited);
+                break;
+            case 4:
+                path = Bidir(startNode, endNode);
+                Name = "Bidirectional Swarm";
+                console.log(path.error);
+                setPath(path.path);
+                setVisited(path.sVisited);
+                setVisited(path.tVisited);
                 break;
             default:
-                Name = "Choose a Algorithm"
+                Name = "Choose a Algorithm";
         }
-        setPath(path.path);
-        setVisited(path.visited);
+
     }
 
     // create spot
