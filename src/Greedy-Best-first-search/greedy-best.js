@@ -53,10 +53,11 @@ function greedy_best(startNode, endNode, rows, cols) {
     priorityQueue.enqueue(startNode, 0);
     vis[startNode.x][startNode.y] = 1;
     visited.push(startNode);
+    let flag = 0;
     while (!priorityQueue.isEmpty()) {
         let node = priorityQueue.dequeue().element;
-        console.log(node);
         if (node === endNode) {
+            flag = 1;
             break;
         }
         for (let i = 0; i < node.neighbours.length; i++) {
@@ -69,6 +70,10 @@ function greedy_best(startNode, endNode, rows, cols) {
             }
         }
     }
+    if (flag === 0) {
+        path = [];
+        return { path, visited, error: "no path found" };
+    }
     let cur = endNode;
     while (cur.previous !== undefined) {
         path.push(cur);
@@ -76,7 +81,10 @@ function greedy_best(startNode, endNode, rows, cols) {
     }
     path.push(cur);
     path.reverse();
-    return { path, visited, text: "no path found" };
+    if (path[path.length - 1] !== endNode) {
+        path = 0;
+    }
+    return { path, visited, error: "no path found" };
 }
 
 export default greedy_best;

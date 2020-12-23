@@ -106,8 +106,31 @@ function Bidir(startNode, endNode) {
                 j++;
             }
 
-            return { path, visited };
+            return { path, visited, error: "path found" };
         }
+    }
+    let i = 0;
+    let j = 0, f = 0;
+    while (i < sVisited.length && j < tVisited.length) {
+        if (f === 0) {
+            visited.push(sVisited[i]);
+            i++;
+            f = 1;
+        } else {
+            visited.push(tVisited[j]);
+            j++;
+            f = 0;
+        }
+    }
+
+    while (i < sVisited.length) {
+        visited.push(sVisited[i]);
+        i++;
+    }
+
+    while (j < tVisited.length) {
+        visited.push(tVisited[j]);
+        j++;
     }
     return { path, visited, error: "no path found" };
 }

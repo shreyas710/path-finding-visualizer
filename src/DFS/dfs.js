@@ -1,10 +1,8 @@
-const vis = [];
-const visited = [];
-const path = [];
+let vis = [];
+let visited = [];
+let path = [];
 let flag = 0;
 function dfs(startNode, endNode, rows, cols) {
-
-
     for (let i = 0; i < rows; i++) {
         const temp = [];
         for (let j = 0; j < cols; j++) {
@@ -13,6 +11,10 @@ function dfs(startNode, endNode, rows, cols) {
         vis.push(temp);
     }
     run(startNode, endNode, vis, visited);
+    if (flag === 0) {
+        path = [];
+        return { path, visited, error: "no path found" };
+    }
     let currentNode = endNode;
     while (currentNode.previous !== undefined) {
         path.push(currentNode);
@@ -20,7 +22,7 @@ function dfs(startNode, endNode, rows, cols) {
     }
     path.push(currentNode);
     path.reverse();
-    return { path, visited, text: "no path found" };
+    return { path, visited, error: "no path found" };
 }
 
 function run(startNode, endNode, vis, visited) {

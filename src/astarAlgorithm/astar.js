@@ -22,7 +22,7 @@ function Astar(startNode, endNode) {
                 temp = temp.previous;
             }
             path.reverse();
-            return { path, visited };
+            return { path, visited, error: "path found" };
         }
         openSet = openSet.filter(ele => ele !== current);
         closedSet.push(current);
@@ -53,7 +53,7 @@ function Astar(startNode, endNode) {
         }
     }
     path.reverse();
-    return { path, visited, text: "no path found" };
+    return { path, visited, error: "no path found" };
 }
 
 function herustic(a, b) {

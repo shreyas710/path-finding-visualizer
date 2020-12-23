@@ -21,6 +21,7 @@ let end = 0;
 let wall = 0;
 let button = 0;
 let weighted_wall = 0;
+let algo = -1;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -81,6 +82,7 @@ const Pathfind = () => {
             const startNode = Grid[NODE_START_ROW][NODE_START_COL];
             const endNode = Grid[NODE_END_ROW][NODE_END_COL];
             let path;
+            algo = val;
             switch (val) {
                 case 1:
                     path = Astar(startNode, endNode);
@@ -249,6 +251,10 @@ const Pathfind = () => {
     )
 
     const visualzeShortestPath = (shortestPath) => {
+        if (shortestPath.length === 0) {
+            alert("No path between start and end node");
+            return;
+        }
         for (let i = 1; i < shortestPath.length - 1; ++i) {
             setTimeout((
                 () => {
@@ -263,7 +269,6 @@ const Pathfind = () => {
         button = 0;
         if (VisitedNodes.length === 0) {
             alert(`Select an Algorithm`);
-
         } else {
             for (let i = 0; i <= VisitedNodes.length; ++i) {
                 if (i === VisitedNodes.length) {
