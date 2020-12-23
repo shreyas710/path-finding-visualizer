@@ -1,6 +1,6 @@
 .node{
     width: 40px;
-    height: 40px;
+    height: 35px;
     border: 1px solid black;
 }
 
@@ -10,6 +10,10 @@
 
 .node-end{
     background-color: red;
+}
+
+.node-wall-weighted{
+    background-color: rgb(42, 165, 159);
 }
 
 .node-visited {

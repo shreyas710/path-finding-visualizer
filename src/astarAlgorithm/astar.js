@@ -21,6 +21,7 @@ function Astar(startNode, endNode) {
                 path.push(temp.previous);
                 temp = temp.previous;
             }
+            path.reverse();
             return { path, visited };
         }
         openSet = openSet.filter(ele => ele !== current);
@@ -51,6 +52,7 @@ function Astar(startNode, endNode) {
             }
         }
     }
+    path.reverse();
     return { path, visited, text: "no path found" };
 }
 
