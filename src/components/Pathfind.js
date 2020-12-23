@@ -9,18 +9,18 @@ import './Pathfind.css';
 import Navbar from './Navbar';
 import './Node.css';
 
-const rows = 16;
+const rows = 15;
 const cols = 55;
 
 let NODE_START_ROW = -1;
 let NODE_START_COL = -1;
 let NODE_END_ROW = -1;
 let NODE_END_COL = -1;
-let start=0;
-let end=0;
-let wall=0;
-let button=0;
-let weighted_wall=0;
+let start = 0;
+let end = 0;
+let wall = 0;
+let button = 0;
+let weighted_wall = 0;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -48,32 +48,36 @@ const Pathfind = () => {
     };
 
     const clearNodes = () => {
-        Name = "Select An Algorithm";
-        for (let i = 0; i < rows; ++i) {
-            for(let j=0;j < cols; ++j){
-                document.getElementById(`node-${i}-${j}`).className = "node";
-            }
-        }
-        start=0;
-        end=0;
-        wall=0;
-        weighted_wall=0;
-        NODE_START_ROW = -1;
-        NODE_START_COL = -1;
-        NODE_END_ROW = -1;
-        NODE_END_COL = -1;
-        setPath([]);
-        setVisited([]);
+        // Name = "Select An Algorithm";
+        // let grid = Grid;
+        // for (let i = 0; i < rows; ++i) {
+        //     for (let j = 0; j < cols; ++j) {
+        //         document.getElementById(`node-${i}-${j}`).className = "node";
+        //         grid[i][j].isWall = false;
+        //     }
+        // }
+        // start = 0;
+        // end = 0;
+        // wall = 0;
+        // weighted_wall = 0;
+        // NODE_START_ROW = -1;
+        // NODE_START_COL = -1;
+        // NODE_END_ROW = -1;
+        // NODE_END_COL = -1;
+        // setPath([]);
+        // setVisited([]);
+        window.location.reload();
     }
 
     const changeAlgo = (val) => {
-        if(start===0){
+        button = 0;
+        if (start === 0) {
             alert(`Select a Start Node!!`);
             return;
-        }else if(end===0){
+        } else if (end === 0) {
             alert(`Select a End Node!!`);
             return;
-        }else {
+        } else {
             const startNode = Grid[NODE_START_ROW][NODE_START_COL];
             const endNode = Grid[NODE_END_ROW][NODE_END_COL];
             let path;
@@ -112,85 +116,85 @@ const Pathfind = () => {
     };
 
 
-    const onHover = (x,y) => {
-        if((wall===1&&button===3)){
-            if((x!==NODE_START_ROW&&y!==NODE_START_COL)||(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+    const onHover = (x, y) => {
+        if ((wall === 1 && button === 3)) {
+            if ((x !== NODE_START_ROW && y !== NODE_START_COL) || (x !== NODE_END_ROW && y !== NODE_END_COL)) {
                 let grid = Grid;
-                if(grid[x][y].isWall){
-                        document.getElementById(`node-${x}-${y}`).className = "node";
-                }else{
-                        document.getElementById(`node-${x}-${y}`).className = "node node-wall";
+                if (grid[x][y].isWall) {
+                    document.getElementById(`node-${x}-${y}`).className = "node";
+                } else {
+                    document.getElementById(`node-${x}-${y}`).className = "node node-wall";
                 }
-                grid[x][y].isWall=!grid[x][y].isWall;
+                grid[x][y].isWall = !grid[x][y].isWall;
                 setGrid(grid);
-                wall=1;
+                wall = 1;
             }
-        }else if(weighted_wall==1&&button===5){
+        } else if (weighted_wall === 1 && button === 5) {
             let grid = Grid;
-            if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
-                if(grid[x][y].isWall){
-                        grid[x][y].weight=5;
-                        document.getElementById(`node-${x}-${y}`).className = "node";
-                }else{
-                        grid[x][y].weight=0;
-                        document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
+            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+                if (grid[x][y].isWall) {
+                    grid[x][y].weight = 2;
+                    document.getElementById(`node-${x}-${y}`).className = "node";
+                } else {
+                    grid[x][y].weight = 1;
+                    document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
                 }
-                grid[x][y].isWall=!grid[x][y].isWall;
+                grid[x][y].isWall = !grid[x][y].isWall;
                 setGrid(grid);
-                weighted_wall=1;
+                weighted_wall = 1;
             }
-        }   
+        }
     }
 
-    const changeWall = (x,y) => {
+    const changeWall = (x, y) => {
         let grid = Grid;
-       if(button===1&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
-           if(start===1){
+        if (button === 1 && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if (start === 1) {
                 document.getElementById(`node-${NODE_START_ROW}-${NODE_START_COL}`).className = "node";
-                grid[NODE_START_ROW][NODE_START_COL].isStart=false;
-           }
-           document.getElementById(`node-${x}-${y}`).className = "node node-start";
-           grid[x][y].isStart=true;
-           setGrid(grid);
-           NODE_START_ROW=x;
-           NODE_START_COL=y;
-           start=1;
-       }else if(button===2&&(x!==NODE_START_ROW&&y!==NODE_START_COL)){
-            if(end===1){
+                grid[NODE_START_ROW][NODE_START_COL].isStart = false;
+            }
+            document.getElementById(`node-${x}-${y}`).className = "node node-start";
+            grid[x][y].isStart = true;
+            setGrid(grid);
+            NODE_START_ROW = x;
+            NODE_START_COL = y;
+            start = 1;
+        } else if (button === 2 && (x !== NODE_START_ROW && y !== NODE_START_COL)) {
+            if (end === 1) {
                 document.getElementById(`node-${NODE_END_ROW}-${NODE_END_COL}`).className = "node";
-                grid[NODE_END_ROW][NODE_END_COL].isEnd=false;
+                grid[NODE_END_ROW][NODE_END_COL].isEnd = false;
             }
             document.getElementById(`node-${x}-${y}`).className = "node node-end";
-            grid[x][y].isEnd=true;
+            grid[x][y].isEnd = true;
             setGrid(grid);
-            NODE_END_ROW=x;
-            NODE_END_COL=y;
-            end=1;
-       }else if(button===3){
-           if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
-                if(grid[x][y].isWall){
-                        document.getElementById(`node-${x}-${y}`).className = "node";
-                }else{
-                        document.getElementById(`node-${x}-${y}`).className = "node node-wall";
+            NODE_END_ROW = x;
+            NODE_END_COL = y;
+            end = 1;
+        } else if (button === 3) {
+            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+                if (grid[x][y].isWall) {
+                    document.getElementById(`node-${x}-${y}`).className = "node";
+                } else {
+                    document.getElementById(`node-${x}-${y}`).className = "node node-wall";
                 }
-                grid[x][y].isWall=!grid[x][y].isWall;
+                grid[x][y].isWall = !grid[x][y].isWall;
                 setGrid(grid);
-                wall=1;
-           }
-       }else if(button===5){
-            if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
-                if(grid[x][y].isWall){
-                        grid[x][y].weight=5;
-                        document.getElementById(`node-${x}-${y}`).className = "node";
-                }else{
-                        grid[x][y].weight=0;
-                        document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
-                }
-                grid[x][y].isWall=!grid[x][y].isWall;
-                setGrid(grid);
-                weighted_wall=1;
+                wall = 1;
             }
-       }
+        } else if (button === 5) {
+            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+                if (grid[x][y].isWall) {
+                    grid[x][y].weight = 2;
+                    document.getElementById(`node-${x}-${y}`).className = "node";
+                } else {
+                    grid[x][y].weight = 1;
+                    document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
+                }
+                grid[x][y].isWall = !grid[x][y].isWall;
+                setGrid(grid);
+                weighted_wall = 1;
+            }
+        }
     }
 
     // add neighbours 
@@ -209,14 +213,11 @@ const Pathfind = () => {
         this.g = 0;
         this.f = 0;
         this.h = 0;
-        this.weight = 0;
+        this.weight = 1;
         this.isStart = false;
         this.isEnd = false;
         this.neighbours = [];
         this.isWall = false;
-        // if (Math.random(1) < 0.2) {
-        //     this.isWall = true;
-        // }
         this.previous = undefined;
         this.addneighbours = function (grid) {
             let i = this.x;
@@ -248,7 +249,7 @@ const Pathfind = () => {
     )
 
     const visualzeShortestPath = (shortestPath) => {
-        for (let i = 0; i < shortestPath.length; ++i) {
+        for (let i = 1; i < shortestPath.length - 1; ++i) {
             setTimeout((
                 () => {
                     const node = shortestPath[i];
@@ -259,7 +260,7 @@ const Pathfind = () => {
     }
 
     const visualizePath = () => {
-        button=0;
+        button = 0;
         if (VisitedNodes.length === 0) {
             alert(`Select an Algorithm`);
 
@@ -272,6 +273,9 @@ const Pathfind = () => {
                         }
                     ), 10 * i);
                 } else {
+                    if ((VisitedNodes[i].x === NODE_START_ROW && VisitedNodes[i].y === NODE_START_COL) || (VisitedNodes[i].x === NODE_END_ROW && VisitedNodes[i].y === NODE_END_COL)) {
+                        continue;
+                    }
                     setTimeout((
                         () => {
                             const node = VisitedNodes[i];
@@ -284,17 +288,17 @@ const Pathfind = () => {
     }
 
     const buttons = (val) => {
-      button=val;
-      if(button===4){
-          let grid=Grid;
+        button = val;
+        if (button === 4) {
+            let grid = Grid;
             for (let i = 0; i < rows; ++i) {
-                for(let j=0;j < cols; ++j){
-                    if((i!==NODE_START_ROW&&j!==NODE_START_COL)&&(i!==NODE_END_ROW&&j!==NODE_END_COL)){
+                for (let j = 0; j < cols; ++j) {
+                    if ((i !== NODE_START_ROW && j !== NODE_START_COL) && (i !== NODE_END_ROW && j !== NODE_END_COL)) {
                         if (Math.random(1) < 0.2) {
                             grid[i][j].isWall = !grid[i][j].isWall;
-                            if(grid[i][j].isWall){
+                            if (grid[i][j].isWall) {
                                 document.getElementById(`node-${i}-${j}`).className = "node node-wall";
-                            }else{
+                            } else {
                                 document.getElementById(`node-${i}-${j}`).className = "node";
                             }
                         }
@@ -306,7 +310,7 @@ const Pathfind = () => {
 
     return (
         <div className>
-            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} buttons={buttons}/>
+            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} buttons={buttons} />
             <div className="Wrapper">
                 <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
                 {gridwithNode}
