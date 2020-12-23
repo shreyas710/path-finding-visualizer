@@ -9,13 +9,18 @@ import './Pathfind.css';
 import Navbar from './Navbar';
 import './Node.css';
 
-const rows = 15;
-const cols = 35;
+const rows = 16;
+const cols = 55;
 
-const NODE_START_ROW = 0;
-const NODE_START_COL = 0;
-const NODE_END_ROW = rows - 1;
-const NODE_END_COL = cols - 1;
+let NODE_START_ROW = -1;
+let NODE_START_COL = -1;
+let NODE_END_ROW = -1;
+let NODE_END_COL = -1;
+let start=0;
+let end=0;
+let wall=0;
+let button=0;
+let weighted_wall=0;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -37,53 +42,64 @@ const Pathfind = () => {
 
         createSpot(grid);
         setGrid(grid);
-        // clearNodes();
         addNeighbours(grid);
-
-        const startNode = grid[NODE_START_ROW][NODE_START_COL];
-        const endNode = grid[NODE_END_ROW][NODE_END_COL];
-        startNode.isWall = false;
-        endNode.isWall = false;
-
         setPath([]);
         setVisited([]);
     };
 
     const clearNodes = () => {
-        // Name = "Select An Algorithm";
-        // for (let i = 0; i < VisitedNodes.length; ++i) {
-        //     const node = VisitedNodes[i];
-        //     document.getElementById(`node-${node.x}-${node.y}`).className = "node";
-        // }
-        window.location.reload();
+        Name = "Select An Algorithm";
+        for (let i = 0; i < rows; ++i) {
+            for(let j=0;j < cols; ++j){
+                document.getElementById(`node-${i}-${j}`).className = "node";
+            }
+        }
+        start=0;
+        end=0;
+        wall=0;
+        weighted_wall=0;
+        NODE_START_ROW = -1;
+        NODE_START_COL = -1;
+        NODE_END_ROW = -1;
+        NODE_END_COL = -1;
+        setPath([]);
+        setVisited([]);
     }
 
     const changeAlgo = (val) => {
-        const startNode = Grid[NODE_START_ROW][NODE_START_COL];
-        const endNode = Grid[NODE_END_ROW][NODE_END_COL];
-        let path;
-        switch (val) {
-            case 1:
-                path = Astar(startNode, endNode);
-                Name = 'A* Algorithm';
-                break;
-            case 2:
-                path = dfs(startNode, endNode, rows, cols);
-                Name = "DFS Algorithm";
-                break;
-            case 3:
-                path = greedy_best(startNode, endNode, rows, cols);
-                Name = "Greedy-best-first-search";
-                break;
-            case 4:
-                path = Bidir(startNode, endNode);
-                Name = "Bidirectional Swarm";
-                break;
-            default:
-                Name = "Choose a Algorithm";
+        if(start===0){
+            alert(`Select a Start Node!!`);
+            return;
+        }else if(end===0){
+            alert(`Select a End Node!!`);
+            return;
+        }else {
+            const startNode = Grid[NODE_START_ROW][NODE_START_COL];
+            const endNode = Grid[NODE_END_ROW][NODE_END_COL];
+            let path;
+            switch (val) {
+                case 1:
+                    path = Astar(startNode, endNode);
+                    Name = 'A* Algorithm';
+                    break;
+                case 2:
+                    path = dfs(startNode, endNode, rows, cols);
+                    Name = "DFS Algorithm";
+                    break;
+                case 3:
+                    path = greedy_best(startNode, endNode, rows, cols);
+                    Name = "Greedy-best-first-search";
+                    break;
+                case 4:
+                    path = Bidir(startNode, endNode);
+                    Name = "Bidirectional Swarm";
+                    break;
+                default:
+                    Name = "Choose a Algorithm";
+            }
+            setPath(path.path);
+            setVisited(path.visited);
         }
-        setPath(path.path);
-        setVisited(path.visited);
     }
 
     // create spot
@@ -94,6 +110,88 @@ const Pathfind = () => {
             }
         }
     };
+
+
+    const onHover = (x,y) => {
+        if((wall===1&&button===3)){
+            if((x!==NODE_START_ROW&&y!==NODE_START_COL)||(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+                let grid = Grid;
+                if(grid[x][y].isWall){
+                        document.getElementById(`node-${x}-${y}`).className = "node";
+                }else{
+                        document.getElementById(`node-${x}-${y}`).className = "node node-wall";
+                }
+                grid[x][y].isWall=!grid[x][y].isWall;
+                setGrid(grid);
+                wall=1;
+            }
+        }else if(weighted_wall==1&&button===5){
+            let grid = Grid;
+            if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+                if(grid[x][y].isWall){
+                        grid[x][y].weight=5;
+                        document.getElementById(`node-${x}-${y}`).className = "node";
+                }else{
+                        grid[x][y].weight=0;
+                        document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
+                }
+                grid[x][y].isWall=!grid[x][y].isWall;
+                setGrid(grid);
+                weighted_wall=1;
+            }
+        }   
+    }
+
+    const changeWall = (x,y) => {
+        let grid = Grid;
+       if(button===1&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+           if(start===1){
+                document.getElementById(`node-${NODE_START_ROW}-${NODE_START_COL}`).className = "node";
+                grid[NODE_START_ROW][NODE_START_COL].isStart=false;
+           }
+           document.getElementById(`node-${x}-${y}`).className = "node node-start";
+           grid[x][y].isStart=true;
+           setGrid(grid);
+           NODE_START_ROW=x;
+           NODE_START_COL=y;
+           start=1;
+       }else if(button===2&&(x!==NODE_START_ROW&&y!==NODE_START_COL)){
+            if(end===1){
+                document.getElementById(`node-${NODE_END_ROW}-${NODE_END_COL}`).className = "node";
+                grid[NODE_END_ROW][NODE_END_COL].isEnd=false;
+            }
+            document.getElementById(`node-${x}-${y}`).className = "node node-end";
+            grid[x][y].isEnd=true;
+            setGrid(grid);
+            NODE_END_ROW=x;
+            NODE_END_COL=y;
+            end=1;
+       }else if(button===3){
+           if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+                if(grid[x][y].isWall){
+                        document.getElementById(`node-${x}-${y}`).className = "node";
+                }else{
+                        document.getElementById(`node-${x}-${y}`).className = "node node-wall";
+                }
+                grid[x][y].isWall=!grid[x][y].isWall;
+                setGrid(grid);
+                wall=1;
+           }
+       }else if(button===5){
+            if((x!==NODE_START_ROW&&y!==NODE_START_COL)&&(x!==NODE_END_ROW&&y!==NODE_END_COL)){
+                if(grid[x][y].isWall){
+                        grid[x][y].weight=5;
+                        document.getElementById(`node-${x}-${y}`).className = "node";
+                }else{
+                        grid[x][y].weight=0;
+                        document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
+                }
+                grid[x][y].isWall=!grid[x][y].isWall;
+                setGrid(grid);
+                weighted_wall=1;
+            }
+       }
+    }
 
     // add neighbours 
     const addNeighbours = (grid) => {
@@ -111,13 +209,14 @@ const Pathfind = () => {
         this.g = 0;
         this.f = 0;
         this.h = 0;
-        this.isStart = this.x === NODE_START_ROW && this.y === NODE_START_COL;
-        this.isEnd = this.x === NODE_END_ROW && this.y === NODE_END_COL;
+        this.weight = 0;
+        this.isStart = false;
+        this.isEnd = false;
         this.neighbours = [];
         this.isWall = false;
-        if (Math.random(1) < 0.2) {
-            this.isWall = true;
-        }
+        // if (Math.random(1) < 0.2) {
+        //     this.isWall = true;
+        // }
         this.previous = undefined;
         this.addneighbours = function (grid) {
             let i = this.x;
@@ -139,7 +238,7 @@ const Pathfind = () => {
                         {row.map((col, colIndex) => {
                             const { isStart, isEnd, isWall } = col;
                             return (
-                                <Node key={colIndex} isStart={isStart} isEnd={isEnd} row={rowIndex} col={colIndex} isWall={isWall}></Node>
+                                <Node key={colIndex} isStart={isStart} isEnd={isEnd} row={rowIndex} col={colIndex} isWall={isWall} changeWall={changeWall} onHover={onHover}></Node>
                             )
                         })}
                     </div>
@@ -160,6 +259,7 @@ const Pathfind = () => {
     }
 
     const visualizePath = () => {
+        button=0;
         if (VisitedNodes.length === 0) {
             alert(`Select an Algorithm`);
 
@@ -183,9 +283,30 @@ const Pathfind = () => {
         }
     }
 
+    const buttons = (val) => {
+      button=val;
+      if(button===4){
+          let grid=Grid;
+            for (let i = 0; i < rows; ++i) {
+                for(let j=0;j < cols; ++j){
+                    if((i!==NODE_START_ROW&&j!==NODE_START_COL)&&(i!==NODE_END_ROW&&j!==NODE_END_COL)){
+                        if (Math.random(1) < 0.2) {
+                            grid[i][j].isWall = !grid[i][j].isWall;
+                            if(grid[i][j].isWall){
+                                document.getElementById(`node-${i}-${j}`).className = "node node-wall";
+                            }else{
+                                document.getElementById(`node-${i}-${j}`).className = "node";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return (
         <div className>
-            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} />
+            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} buttons={buttons}/>
             <div className="Wrapper">
                 <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
                 {gridwithNode}
