@@ -3,7 +3,7 @@ import "bootswatch/dist/lux/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootStrap from 'react-bootstrap'
 
-const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlgo, clearNodes,buttons }) => {
+const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlgo, clearNodes, buttons }) => {
 
     return (
         <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -13,8 +13,8 @@ const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlg
                 <ReactBootStrap.Nav className="mr-auto">
                     <ReactBootStrap.Nav.Link onClick={visualizePath}>Visualize</ReactBootStrap.Nav.Link>
                     <ReactBootStrap.Nav.Link onClick={clearNodes} >Clear</ReactBootStrap.Nav.Link>
-                    <ReactBootStrap.Nav.Link onClick={() =>{ buttons(1)}}>Start Node</ReactBootStrap.Nav.Link>
-                    <ReactBootStrap.Nav.Link onClick={() =>{ buttons(2)}}>End Node</ReactBootStrap.Nav.Link>
+                    <ReactBootStrap.Nav.Link onClick={() => { buttons(1) }}>Start Node</ReactBootStrap.Nav.Link>
+                    <ReactBootStrap.Nav.Link onClick={() => { buttons(2) }}>End Node</ReactBootStrap.Nav.Link>
                     <ReactBootStrap.NavDropdown title="Walls" id="collasible-nav-dropdown">
                         <ReactBootStrap.NavDropdown.Item onClick={() => { buttons(3) }}>Wall</ReactBootStrap.NavDropdown.Item>
                         <ReactBootStrap.NavDropdown.Item onClick={() => { buttons(5) }}>Weighted Wall</ReactBootStrap.NavDropdown.Item>
@@ -25,6 +25,7 @@ const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlg
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(2) }}>DFS</ReactBootStrap.NavDropdown.Item>
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(3) }}>Greedy-Best-First-Search</ReactBootStrap.NavDropdown.Item>
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(4) }}>Bidirectional swarm</ReactBootStrap.NavDropdown.Item>
+                        <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(5) }}>BFS</ReactBootStrap.NavDropdown.Item>
                     </ReactBootStrap.NavDropdown>
                 </ReactBootStrap.Nav>
                 <ReactBootStrap.Nav>

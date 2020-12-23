@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import Astar from '../astarAlgorithm/astar'
-import bfs from '../bfsAlgorithm/bfs';
-//import Node from './Node'
 import Astar from '../astarAlgorithm/astar';
 import dfs from "../DFS/dfs";
 import greedy_best from '../Greedy-Best-first-search/greedy-best';
@@ -24,7 +21,6 @@ let end = 0;
 let wall = 0;
 let button = 0;
 let weighted_wall = 0;
-let algo = -1;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -74,27 +70,6 @@ const Pathfind = () => {
     }
 
     const changeAlgo = (val) => {
-        const startNode = Grid[NODE_START_ROW][NODE_START_COL];
-        const endNode = Grid[NODE_END_ROW][NODE_END_COL];
-        let path;
-        algo = val;
-        switch (val) {
-            case 1:
-                path = Astar(startNode, endNode);
-                Name = 'A* Algorithm'
-                break;
-            case 2:
-                Name = "Dijkstra's Algorithm";
-                break;
-            case 3:
-                path = bfs(startNode,endNode);
-                Name = "BFS Algorithm";
-                break;
-            case 4:
-                Name = "Floyd Warshall"
-                break;
-            default:
-                path = Astar(startNode, endNode);
         button = 0;
         if (start === 0) {
             alert(`Select a Start Node!!`);
@@ -106,7 +81,6 @@ const Pathfind = () => {
             const startNode = Grid[NODE_START_ROW][NODE_START_COL];
             const endNode = Grid[NODE_END_ROW][NODE_END_COL];
             let path;
-            algo = val;
             switch (val) {
                 case 1:
                     path = Astar(startNode, endNode);
@@ -130,7 +104,7 @@ const Pathfind = () => {
             setPath(path.path);
             setVisited(path.visited);
         }
-    }}
+    }
 
     // create spot
     const createSpot = (grid) => {
@@ -144,7 +118,7 @@ const Pathfind = () => {
 
     const onHover = (x, y) => {
         if ((wall === 1 && button === 3)) {
-            if ((x !== NODE_START_ROW && y !== NODE_START_COL) || (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
                 let grid = Grid;
                 if (grid[x][y].isWall) {
                     document.getElementById(`node-${x}-${y}`).className = "node";
@@ -347,6 +321,6 @@ const Pathfind = () => {
 
         </div>
     )
-}
+};
 
 export default Pathfind;
