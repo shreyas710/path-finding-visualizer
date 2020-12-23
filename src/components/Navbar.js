@@ -3,7 +3,7 @@ import "bootswatch/dist/lux/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootStrap from 'react-bootstrap'
 
-const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlgo }) => {
+const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlgo, clearNodes }) => {
 
     return (
         <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -12,7 +12,7 @@ const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlg
             <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
                 <ReactBootStrap.Nav className="mr-auto">
                     <ReactBootStrap.Nav.Link onClick={visualizePath}>Visualize</ReactBootStrap.Nav.Link>
-                    <ReactBootStrap.Nav.Link onClick={initialiseGrid} >Clear</ReactBootStrap.Nav.Link>
+                    <ReactBootStrap.Nav.Link onClick={clearNodes} >Clear</ReactBootStrap.Nav.Link>
                     <ReactBootStrap.Nav.Link >Start Node</ReactBootStrap.Nav.Link>
                     <ReactBootStrap.Nav.Link href="#pricing">End Node</ReactBootStrap.Nav.Link>
                     <ReactBootStrap.Nav.Link href="#pricing">Wall</ReactBootStrap.Nav.Link>

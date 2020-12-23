@@ -37,7 +37,7 @@ const Pathfind = () => {
 
         createSpot(grid);
         setGrid(grid);
-        clearNodes();
+        // clearNodes();
         addNeighbours(grid);
 
         const startNode = grid[NODE_START_ROW][NODE_START_COL];
@@ -50,11 +50,12 @@ const Pathfind = () => {
     };
 
     const clearNodes = () => {
-        Name = "Select An Algorithm";
-        for (let i = 0; i < VisitedNodes.length; ++i) {
-            const node = VisitedNodes[i];
-            document.getElementById(`node-${node.x}-${node.y}`).className = "node";
-        }
+        // Name = "Select An Algorithm";
+        // for (let i = 0; i < VisitedNodes.length; ++i) {
+        //     const node = VisitedNodes[i];
+        //     document.getElementById(`node-${node.x}-${node.y}`).className = "node";
+        // }
+        window.location.reload();
     }
 
     const changeAlgo = (val) => {
@@ -65,32 +66,24 @@ const Pathfind = () => {
             case 1:
                 path = Astar(startNode, endNode);
                 Name = 'A* Algorithm';
-                setPath(path.path);
-                setVisited(path.visited);
                 break;
             case 2:
                 path = dfs(startNode, endNode, rows, cols);
                 Name = "DFS Algorithm";
-                setPath(path.path);
-                setVisited(path.visited);
                 break;
             case 3:
                 path = greedy_best(startNode, endNode, rows, cols);
                 Name = "Greedy-best-first-search";
-                setPath(path.path);
-                setVisited(path.visited);
                 break;
             case 4:
                 path = Bidir(startNode, endNode);
                 Name = "Bidirectional Swarm";
-                console.log(path.error);
-                setPath(path.path);
-                setVisited(path.Visited);
                 break;
             default:
                 Name = "Choose a Algorithm";
         }
-
+        setPath(path.path);
+        setVisited(path.visited);
     }
 
     // create spot
@@ -192,7 +185,7 @@ const Pathfind = () => {
 
     return (
         <div className>
-            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} />
+            <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} />
             <div className="Wrapper">
                 <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
                 {gridwithNode}
