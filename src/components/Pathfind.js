@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+//import Astar from '../astarAlgorithm/astar'
+import bfs from '../bfsAlgorithm/bfs';
+//import Node from './Node'
 import Astar from '../astarAlgorithm/astar';
 import dfs from "../DFS/dfs";
 import greedy_best from '../Greedy-Best-first-search/greedy-best';
@@ -71,6 +74,27 @@ const Pathfind = () => {
     }
 
     const changeAlgo = (val) => {
+        const startNode = Grid[NODE_START_ROW][NODE_START_COL];
+        const endNode = Grid[NODE_END_ROW][NODE_END_COL];
+        let path;
+        algo = val;
+        switch (val) {
+            case 1:
+                path = Astar(startNode, endNode);
+                Name = 'A* Algorithm'
+                break;
+            case 2:
+                Name = "Dijkstra's Algorithm";
+                break;
+            case 3:
+                path = bfs(startNode,endNode);
+                Name = "BFS Algorithm";
+                break;
+            case 4:
+                Name = "Floyd Warshall"
+                break;
+            default:
+                path = Astar(startNode, endNode);
         button = 0;
         if (start === 0) {
             alert(`Select a Start Node!!`);
@@ -106,7 +130,7 @@ const Pathfind = () => {
             setPath(path.path);
             setVisited(path.visited);
         }
-    }
+    }}
 
     // create spot
     const createSpot = (grid) => {
@@ -323,6 +347,6 @@ const Pathfind = () => {
 
         </div>
     )
-};
+}
 
 export default Pathfind;
