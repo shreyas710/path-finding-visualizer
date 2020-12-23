@@ -9,16 +9,20 @@ function bfs(startNode, endNode) {
         if (curNode === endNode) {
             let temp = curNode;
             while (temp.previous !== startNode) {
-                path.unshift(temp);
+                path.push(temp);
                 temp = temp.previous;
             }
+            path.push(temp);
             path.push(startNode);
+            path.reverse();
             return { path, visited };
         }
-        for (let i = 0; i < curNode.neighbours.length; i++) {
-            if (!visited.includes(curNode.neighbours[i]) && !curNode.neighbours[i].isWall) {
-                curNode.neighbours[i].previous = curNode;
-                q.push(curNode.neighbours[i]);
+        let neighbour = curNode.neighbours;
+        for (let i = 0; i < neighbour.length; i++) {
+            if (!visited.includes(neighbour[i]) && !neighbour[i].isWall) {
+                neighbour[i].previous = curNode;
+                q.push(neighbour[i]);
+                visited.push(neighbour[i]);
             }
         }
     }

@@ -3,6 +3,7 @@ import Astar from '../astarAlgorithm/astar';
 import dfs from "../DFS/dfs";
 import greedy_best from '../Greedy-Best-first-search/greedy-best';
 import Bidir from '../bidirectional swarm/bidir';
+import bfs from '../bfsAlgorithm/bfs';
 import Node from './Node';
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css';
@@ -97,6 +98,10 @@ const Pathfind = () => {
                 case 4:
                     path = Bidir(startNode, endNode);
                     Name = "Bidirectional Swarm";
+                    break;
+                case 5:
+                    path = bfs(startNode, endNode);
+                    Name = "BFS";
                     break;
                 default:
                     Name = "Choose a Algorithm";
