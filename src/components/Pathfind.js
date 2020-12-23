@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Astar from '../astarAlgorithm/astar'
+import bfs from '../bfsAlgorithm/bfs';
 import Node from './Node'
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css'
@@ -68,6 +69,7 @@ const Pathfind = () => {
                 Name = "Dijkstra's Algorithm";
                 break;
             case 3:
+                path = bfs(startNode,endNode);
                 Name = "BFS Algorithm";
                 break;
             case 4:
@@ -187,6 +189,6 @@ const Pathfind = () => {
 
         </div>
     )
-};
+}
 
 export default Pathfind;
