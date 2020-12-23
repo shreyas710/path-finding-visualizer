@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Astar from '../astarAlgorithm/astar'
+//import Astar from '../astarAlgorithm/astar'
 import bfs from '../bfsAlgorithm/bfs';
-import Node from './Node'
+//import Node from './Node'
 import Astar from '../astarAlgorithm/astar';
 import dfs from "../DFS/dfs";
 import greedy_best from '../Greedy-Best-first-search/greedy-best';
@@ -24,6 +24,7 @@ let end = 0;
 let wall = 0;
 let button = 0;
 let weighted_wall = 0;
+let algo = -1;
 let Name = "Select an Algorithm";
 
 const Pathfind = () => {
@@ -128,7 +129,7 @@ const Pathfind = () => {
             setPath(path.path);
             setVisited(path.visited);
         }
-    }
+    }}
 
     // create spot
     const createSpot = (grid) => {
