@@ -1,0 +1,12 @@
+#about{
+    color: #ddd;
+}
+
+#hide{
+    display: none;
+    z-index: 9;
+}
+
+#hide:hover {
+    cursor: pointer;
+}

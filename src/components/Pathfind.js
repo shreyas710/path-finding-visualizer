@@ -11,7 +11,7 @@ import Navbar from './Navbar';
 import './Node.css';
 
 const rows = 15;
-const cols = 55;
+const cols = 60;
 
 let NODE_START_ROW = -1;
 let NODE_START_COL = -1;
@@ -319,8 +319,8 @@ const Pathfind = () => {
     return (
         <div className>
             <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} buttons={buttons} />
+            <h1 style={{ marginTop: 30 + 'px', marginLeft: 73 + 'px' }}>{Name}</h1>
             <div className="Wrapper">
-                <h1 style={{ marginTop: 30 + 'px' }}>{Name}</h1>
                 {gridwithNode}
             </div>
 
