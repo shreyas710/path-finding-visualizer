@@ -101,7 +101,7 @@ const Pathfind = () => {
                     break;
                 case 5:
                     path = bfs(startNode, endNode);
-                    Name = "BFS";
+                    Name = "BFS Algorithm";
                     break;
                 default:
                     Name = "Choose a Algorithm";
@@ -123,7 +123,7 @@ const Pathfind = () => {
 
     const onHover = (x, y) => {
         if ((wall === 1 && button === 3)) {
-            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
                 let grid = Grid;
                 if (grid[x][y].isWall) {
                     document.getElementById(`node-${x}-${y}`).className = "node";
@@ -136,7 +136,7 @@ const Pathfind = () => {
             }
         } else if (weighted_wall === 1 && button === 5) {
             let grid = Grid;
-            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
                 if (grid[x][y].isWall) {
                     grid[x][y].weight = 2;
                     document.getElementById(`node-${x}-${y}`).className = "node";
@@ -153,7 +153,7 @@ const Pathfind = () => {
 
     const changeWall = (x, y) => {
         let grid = Grid;
-        if (button === 1 && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+        if (button === 1 && !(x === NODE_END_ROW && y === NODE_END_COL)) {
             if (start === 1) {
                 document.getElementById(`node-${NODE_START_ROW}-${NODE_START_COL}`).className = "node";
                 grid[NODE_START_ROW][NODE_START_COL].isStart = false;
@@ -164,7 +164,7 @@ const Pathfind = () => {
             NODE_START_ROW = x;
             NODE_START_COL = y;
             start = 1;
-        } else if (button === 2 && (x !== NODE_START_ROW && y !== NODE_START_COL)) {
+        } else if (button === 2 && !(x === NODE_START_ROW && y === NODE_START_COL)) {
             if (end === 1) {
                 document.getElementById(`node-${NODE_END_ROW}-${NODE_END_COL}`).className = "node";
                 grid[NODE_END_ROW][NODE_END_COL].isEnd = false;
@@ -176,7 +176,7 @@ const Pathfind = () => {
             NODE_END_COL = y;
             end = 1;
         } else if (button === 3) {
-            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
                 if (grid[x][y].isWall) {
                     document.getElementById(`node-${x}-${y}`).className = "node";
                 } else {
@@ -187,7 +187,7 @@ const Pathfind = () => {
                 wall = 1;
             }
         } else if (button === 5) {
-            if ((x !== NODE_START_ROW && y !== NODE_START_COL) && (x !== NODE_END_ROW && y !== NODE_END_COL)) {
+            if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
                 if (grid[x][y].isWall) {
                     grid[x][y].weight = 2;
                     document.getElementById(`node-${x}-${y}`).className = "node";
@@ -255,7 +255,7 @@ const Pathfind = () => {
 
     const visualzeShortestPath = (shortestPath) => {
         if (shortestPath.length === 0) {
-            alert("No path between start and end node");
+            alert("No path found between Start and End node!!");
             return;
         }
         for (let i = 1; i < shortestPath.length - 1; ++i) {
