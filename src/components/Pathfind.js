@@ -9,6 +9,7 @@ import "bootswatch/dist/lux/bootstrap.min.css";
 import './Pathfind.css';
 import Navbar from './Navbar';
 import './Node.css';
+import dijkstra from '../DikstrasAlgorithm/dijkstra';
 
 const rows = 15;
 const cols = 60;
@@ -103,6 +104,10 @@ const Pathfind = () => {
                     path = bfs(startNode, endNode);
                     Name = "BFS Algorithm";
                     break;
+                case 6:
+                    path = dijkstra(startNode, endNode, rows, cols);
+                    Name = "Dijkstra Algorithm";
+                    break;
                 default:
                     Name = "Choose a Algorithm";
             }
@@ -137,14 +142,14 @@ const Pathfind = () => {
         } else if (weighted_wall === 1 && button === 5) {
             let grid = Grid;
             if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
-                if (grid[x][y].isWall) {
+                if (grid[x][y].weight === 1) {
                     grid[x][y].weight = 2;
+                    console.log(grid[x][y].weight);
                     document.getElementById(`node-${x}-${y}`).className = "node";
                 } else {
                     grid[x][y].weight = 1;
                     document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
                 }
-                grid[x][y].isWall = !grid[x][y].isWall;
                 setGrid(grid);
                 weighted_wall = 1;
             }
@@ -188,14 +193,14 @@ const Pathfind = () => {
             }
         } else if (button === 5) {
             if (!((x === NODE_START_ROW && y === NODE_START_COL) || (x === NODE_END_ROW && y === NODE_END_COL))) {
-                if (grid[x][y].isWall) {
+                if (grid[x][y].weight === 1) {
                     grid[x][y].weight = 2;
+                    console.log(grid[x][y].weight);
                     document.getElementById(`node-${x}-${y}`).className = "node";
                 } else {
                     grid[x][y].weight = 1;
                     document.getElementById(`node-${x}-${y}`).className = "node node-wall-weighted";
                 }
-                grid[x][y].isWall = !grid[x][y].isWall;
                 setGrid(grid);
                 weighted_wall = 1;
             }
@@ -262,7 +267,9 @@ const Pathfind = () => {
             setTimeout((
                 () => {
                     const node = shortestPath[i];
-                    document.getElementById(`node-${node.x}-${node.y}`).className = "node node-shortest-path";
+                    if(node.weight === 1){
+                        document.getElementById(`node-${node.x}-${node.y}`).className = "node node-shortest-path";
+                    }
                 }
             ), 20 * i);
         }
@@ -287,7 +294,9 @@ const Pathfind = () => {
                     setTimeout((
                         () => {
                             const node = VisitedNodes[i];
-                            document.getElementById(`node-${node.x}-${node.y}`).className = "node node-visited";
+                            if(node.weight === 1){
+                                document.getElementById(`node-${node.x}-${node.y}`).className = "node node-visited";
+                            }
                         }
                     ), 10 * i);
                 }
