@@ -38,13 +38,13 @@ class PriorityQueue {
     }
 }
 
-function dijkstra (startNode, endNode, rows, cols){
+function dijkstra(startNode, endNode, rows, cols) {
     let vis = [];
     let visited = [];
     let d = [];
-    let path= [];
+    let path = [];
     for (let i = 0; i < rows; i++) {
-        const temp = [],temp1 = [];
+        const temp = [], temp1 = [];
         for (let j = 0; j < cols; j++) {
             temp.push(0);
             temp1.push(100000000);
@@ -53,32 +53,33 @@ function dijkstra (startNode, endNode, rows, cols){
         d.push(temp1);
     }
     var priorityQueue = new PriorityQueue();
-    priorityQueue.enqueue(startNode,0);
-    vis[startNode.x][startNode.y]=1;
+    priorityQueue.enqueue(startNode, 0);
+    vis[startNode.x][startNode.y] = 1;
     visited.push(startNode);
-    d[startNode.x][startNode.y]=0;
+    d[startNode.x][startNode.y] = 0;
     let flag = 0;
-    while(!priorityQueue.isEmpty()){
+    while (!priorityQueue.isEmpty()) {
         let node = priorityQueue.dequeue();
         console.log(node.priority);
-        if(node.element===endNode){
+        if (node.element === endNode) {
             flag = 1;
+            break;
         }
-        for(let i=0; i < node.element.neighbours.length; i++){
+        for (let i = 0; i < node.element.neighbours.length; i++) {
             let neighbour = node.element.neighbours[i];
-            if(d[node.element.x][node.element.y] + neighbour.weight < d[neighbour.x][neighbour.y]){
+            if (d[node.element.x][node.element.y] + neighbour.weight < d[neighbour.x][neighbour.y] && !node.element.neighbours[i].isWall) {
                 vis[neighbour.x][neighbour.y] = 1;
                 visited.push(neighbour);
                 neighbour.previous = node.element;
                 d[neighbour.x][neighbour.y] = d[node.element.x][node.element.y] + neighbour.weight;
-                priorityQueue.enqueue(neighbour,neighbour.weight);
+                priorityQueue.enqueue(neighbour, neighbour.weight);
             }
         }
     }
-   
-    if(flag === 1){
+
+    if (flag === 1) {
         let cur = endNode;
-        while(cur.previous !== undefined){
+        while (cur.previous !== undefined) {
             path.push(cur);
             cur = cur.previous;
         }

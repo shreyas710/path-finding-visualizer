@@ -328,7 +328,7 @@ const Pathfind = () => {
     return (
         <div className>
             <Navbar visualizePath={visualizePath} initialiseGrid={initialiseGrid} visualzeShortestPath={visualzeShortestPath} changeAlgo={changeAlgo} clearNodes={clearNodes} buttons={buttons} />
-            <h1 style={{ marginTop: 30 + 'px', marginLeft: 73 + 'px' }}>{Name}</h1>
+            <h1 style={{ marginTop: 5 + 'px', marginLeft: 73 + 'px' }}>{Name}</h1>
             <div className="Wrapper">
                 {gridwithNode}
             </div>

@@ -2,21 +2,6 @@ import React from 'react';
 import "bootswatch/dist/lux/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as ReactBootStrap from 'react-bootstrap';
-import { Card } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import './Navbar.css';
-
-const dispcard = () => {
-    var x = document.getElementById("hide");
-    var y = document.getElementById("about");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        y.style.display = "none";
-    } else {
-        x.style.display = "none";
-        y.style.display = "block";
-    }
-}
 
 const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlgo, clearNodes, buttons }) => {
 
@@ -44,27 +29,8 @@ const Navbar = ({ visualizePath, visualzeShortestPath, initialiseGrid, changeAlg
                         <ReactBootStrap.NavDropdown.Item onClick={() => { changeAlgo(6) }}>Dijkstra</ReactBootStrap.NavDropdown.Item>
                     </ReactBootStrap.NavDropdown>
                 </ReactBootStrap.Nav>
-                <ReactBootStrap.Nav.Link onClick={dispcard} id="about">
-                    about
-                </ReactBootStrap.Nav.Link>
-                <div id="hide" onClick={dispcard}>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Body>
-                            <Card.Text>
-                                Made By:
-                                <ul>
-                                    <li>Shreyas Kulkarni</li>
-                                    <li>Kunal Kolambe</li>
-                                    <li>Sanket Varpe</li>
-                                </ul>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
             </ReactBootStrap.Navbar.Collapse>
         </ReactBootStrap.Navbar>
-
-
     );
 }
 

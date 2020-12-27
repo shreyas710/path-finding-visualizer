@@ -1,12 +1,12 @@
 import React from 'react';
-import Pathfind from './components/Pathfind.js'
+import Pathfind from './components/Pathfind';
+import Footer from './components/Footer';
 
 const App = () => {
     return (
         <div>
-            {/* <Navbar> */}
             <Pathfind />
-            {/* </Navbar> */}
+            <Footer />
         </div>
     );
 };
